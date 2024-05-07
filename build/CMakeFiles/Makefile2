@@ -98,6 +98,7 @@ METANN/clean:
 # Recursive "all" directory target.
 test/all: test/CMakeFiles/example_test.dir/all
 test/all: test/CMakeFiles/varTypeDictTest.dir/all
+test/all: test/CMakeFiles/sfinaeTest.dir/all
 .PHONY : test/all
 
 # Recursive "preinstall" directory target.
@@ -107,6 +108,7 @@ test/preinstall:
 # Recursive "clean" directory target.
 test/clean: test/CMakeFiles/example_test.dir/clean
 test/clean: test/CMakeFiles/varTypeDictTest.dir/clean
+test/clean: test/CMakeFiles/sfinaeTest.dir/clean
 .PHONY : test/clean
 
 #=============================================================================
@@ -142,7 +144,7 @@ test/CMakeFiles/example_test.dir/clean:
 test/CMakeFiles/varTypeDictTest.dir/all:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/varTypeDictTest.dir/build.make test/CMakeFiles/varTypeDictTest.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/varTypeDictTest.dir/build.make test/CMakeFiles/varTypeDictTest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ljk98/MetaNN/build/CMakeFiles --progress-num=3,4 "Built target varTypeDictTest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ljk98/MetaNN/build/CMakeFiles --progress-num=5,6 "Built target varTypeDictTest"
 .PHONY : test/CMakeFiles/varTypeDictTest.dir/all
 
 # Build rule for subdir invocation for target.
@@ -160,6 +162,32 @@ varTypeDictTest: test/CMakeFiles/varTypeDictTest.dir/rule
 test/CMakeFiles/varTypeDictTest.dir/clean:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/varTypeDictTest.dir/build.make test/CMakeFiles/varTypeDictTest.dir/clean
 .PHONY : test/CMakeFiles/varTypeDictTest.dir/clean
+
+#=============================================================================
+# Target rules for target test/CMakeFiles/sfinaeTest.dir
+
+# All Build rule for target.
+test/CMakeFiles/sfinaeTest.dir/all:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/sfinaeTest.dir/build.make test/CMakeFiles/sfinaeTest.dir/depend
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/sfinaeTest.dir/build.make test/CMakeFiles/sfinaeTest.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ljk98/MetaNN/build/CMakeFiles --progress-num=3,4 "Built target sfinaeTest"
+.PHONY : test/CMakeFiles/sfinaeTest.dir/all
+
+# Build rule for subdir invocation for target.
+test/CMakeFiles/sfinaeTest.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ljk98/MetaNN/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/sfinaeTest.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ljk98/MetaNN/build/CMakeFiles 0
+.PHONY : test/CMakeFiles/sfinaeTest.dir/rule
+
+# Convenience name for target.
+sfinaeTest: test/CMakeFiles/sfinaeTest.dir/rule
+.PHONY : sfinaeTest
+
+# clean rule for target.
+test/CMakeFiles/sfinaeTest.dir/clean:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/sfinaeTest.dir/build.make test/CMakeFiles/sfinaeTest.dir/clean
+.PHONY : test/CMakeFiles/sfinaeTest.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

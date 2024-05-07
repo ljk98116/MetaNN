@@ -54,4 +54,5 @@ set(CMAKE_MAKEFILE_PRODUCTS
 set(CMAKE_DEPEND_INFO_FILES
   "test/CMakeFiles/example_test.dir/DependInfo.cmake"
   "test/CMakeFiles/varTypeDictTest.dir/DependInfo.cmake"
+  "test/CMakeFiles/sfinaeTest.dir/DependInfo.cmake"
   )

@@ -19,3 +19,5 @@ add_executable(varTypeDictTest VarTypeDictTest.cpp)
 target_link_libraries(varTypeDictTest PRIVATE
     CppUTest
     CppUTestExt)
+
+add_executable(sfinaeTest SFINAE.cpp)

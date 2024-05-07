@@ -142,6 +142,19 @@ varTypeDictTest/fast:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/varTypeDictTest.dir/build.make test/CMakeFiles/varTypeDictTest.dir/build
 .PHONY : varTypeDictTest/fast
 
+#=============================================================================
+# Target rules for targets named sfinaeTest
+
+# Build rule for target.
+sfinaeTest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 sfinaeTest
+.PHONY : sfinaeTest
+
+# fast build rule for target.
+sfinaeTest/fast:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/sfinaeTest.dir/build.make test/CMakeFiles/sfinaeTest.dir/build
+.PHONY : sfinaeTest/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -151,6 +164,7 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... example_test"
+	@echo "... sfinaeTest"
 	@echo "... varTypeDictTest"
 .PHONY : help
 

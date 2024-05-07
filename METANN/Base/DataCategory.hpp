@@ -1,6 +1,9 @@
 #ifndef DATACATEGORY_HPP_
 #define DATACATEGORY_HPP_
 
+#include <type_traits>
+#include <iterator>
+
 namespace METANN
 {
 //去常量、引用属性
@@ -150,10 +153,10 @@ private:
 public:
     using type = typename 
     helper<IsScalar<T>, IsMatrix<T>, IsBatchScalar<T>, IsBatchMatrix<T> >::type;
-
-    template <typename T>
-    using DataCategory = typename DataCategory_<T>::type;
 };
+
+template <typename T>
+using DataCategory = typename DataCategory_<T>::type;
 
 //PrincipalDataType获取主体类型
 template <typename TCategory, typename TElem, typename TDevice>
@@ -196,5 +199,20 @@ auto LowerAccess(TData&& p)
     using RawType = RemConstRef<TData>;
     return LowerAccessImpl<RawType>(std::forward<TData>(p));
 }
+
+//判断是否为C++迭代器
+//利用函数匹配做,...的优先级最低
+template <typename T>
+struct IsIterator_
+{
+    template <typename R>
+    static std::true_type Test(typename std::iterator_traits<R>::iterator_category*);
+    static std::false_type Test(...);
+    static constexpr bool value = decltype(Test<T>(nullptr)::value);
+};
+
+template <typename T>
+constexpr bool IsIterator = IsIterator_<T>::value;
+
 }
 #endif

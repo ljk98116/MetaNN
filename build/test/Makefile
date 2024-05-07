@@ -144,6 +144,20 @@ varTypeDictTest/fast:
 	cd /home/ljk98/MetaNN/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/varTypeDictTest.dir/build.make test/CMakeFiles/varTypeDictTest.dir/build
 .PHONY : varTypeDictTest/fast
 
+# Convenience name for target.
+test/CMakeFiles/sfinaeTest.dir/rule:
+	cd /home/ljk98/MetaNN/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/sfinaeTest.dir/rule
+.PHONY : test/CMakeFiles/sfinaeTest.dir/rule
+
+# Convenience name for target.
+sfinaeTest: test/CMakeFiles/sfinaeTest.dir/rule
+.PHONY : sfinaeTest
+
+# fast build rule for target.
+sfinaeTest/fast:
+	cd /home/ljk98/MetaNN/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/sfinaeTest.dir/build.make test/CMakeFiles/sfinaeTest.dir/build
+.PHONY : sfinaeTest/fast
+
 ExampleTest.o: ExampleTest.cpp.o
 .PHONY : ExampleTest.o
 
@@ -167,6 +181,30 @@ ExampleTest.s: ExampleTest.cpp.s
 ExampleTest.cpp.s:
 	cd /home/ljk98/MetaNN/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/example_test.dir/build.make test/CMakeFiles/example_test.dir/ExampleTest.cpp.s
 .PHONY : ExampleTest.cpp.s
+
+SFINAE.o: SFINAE.cpp.o
+.PHONY : SFINAE.o
+
+# target to build an object file
+SFINAE.cpp.o:
+	cd /home/ljk98/MetaNN/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/sfinaeTest.dir/build.make test/CMakeFiles/sfinaeTest.dir/SFINAE.cpp.o
+.PHONY : SFINAE.cpp.o
+
+SFINAE.i: SFINAE.cpp.i
+.PHONY : SFINAE.i
+
+# target to preprocess a source file
+SFINAE.cpp.i:
+	cd /home/ljk98/MetaNN/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/sfinaeTest.dir/build.make test/CMakeFiles/sfinaeTest.dir/SFINAE.cpp.i
+.PHONY : SFINAE.cpp.i
+
+SFINAE.s: SFINAE.cpp.s
+.PHONY : SFINAE.s
+
+# target to generate assembly for a file
+SFINAE.cpp.s:
+	cd /home/ljk98/MetaNN/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/sfinaeTest.dir/build.make test/CMakeFiles/sfinaeTest.dir/SFINAE.cpp.s
+.PHONY : SFINAE.cpp.s
 
 VarTypeDictTest.o: VarTypeDictTest.cpp.o
 .PHONY : VarTypeDictTest.o
@@ -201,10 +239,14 @@ help:
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
 	@echo "... example_test"
+	@echo "... sfinaeTest"
 	@echo "... varTypeDictTest"
 	@echo "... ExampleTest.o"
 	@echo "... ExampleTest.i"
 	@echo "... ExampleTest.s"
+	@echo "... SFINAE.o"
+	@echo "... SFINAE.i"
+	@echo "... SFINAE.s"
 	@echo "... VarTypeDictTest.o"
 	@echo "... VarTypeDictTest.i"
 	@echo "... VarTypeDictTest.s"
