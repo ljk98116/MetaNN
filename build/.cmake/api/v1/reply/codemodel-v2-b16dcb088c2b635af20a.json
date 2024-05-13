@@ -1,0 +1,144 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "METANN",
+					"jsonFile" : "directory-METANN-Debug-16374c55d42718f23f04.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "METANN"
+				},
+				{
+					"build" : "test",
+					"childIndexes" : 
+					[
+						3
+					],
+					"jsonFile" : "directory-test-Debug-451c0598f41488bb20b9.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "test",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						4
+					]
+				},
+				{
+					"build" : "test/data",
+					"jsonFile" : "directory-test.data-Debug-01303ec0315f243b57ca.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 2,
+					"projectIndex" : 0,
+					"source" : "test/data",
+					"targetIndexes" : 
+					[
+						3
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3
+					],
+					"name" : "MetaNN Test",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 2,
+					"id" : "TotalTest::@36f028580bb02cc8272a",
+					"jsonFile" : "target-TotalTest-Debug-14df3f73356030bc9169.json",
+					"name" : "TotalTest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "example_test::@36f028580bb02cc8272a",
+					"jsonFile" : "target-example_test-Debug-b64caeaacf07c3d00f7e.json",
+					"name" : "example_test",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "sfinaeTest::@36f028580bb02cc8272a",
+					"jsonFile" : "target-sfinaeTest-Debug-fba7e55a0b16b5273739.json",
+					"name" : "sfinaeTest",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "test_array::@94cee19d55d37f8fcd9b",
+					"jsonFile" : "target-test_array-Debug-dd4fc3d0eb90fac6f857.json",
+					"name" : "test_array",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "varTypeDictTest::@36f028580bb02cc8272a",
+					"jsonFile" : "target-varTypeDictTest-Debug-591dd04742748c787548.json",
+					"name" : "varTypeDictTest",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/ljk98/MetaNN/build",
+		"source" : "/home/ljk98/MetaNN"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 3
+	}
+}
