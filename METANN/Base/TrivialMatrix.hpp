@@ -19,10 +19,6 @@ public:
     TrivialMatrix(size_t p_rowNum, size_t p_colNum, TScalar p_val):
     m_rowNum(p_rowNum), m_colNum(p_colNum), m_val(p_val){}
 
-    TrivialMatrix(size_t p_rowNum=0, size_t p_colNum=0):
-    m_rowNum(p_rowNum), m_colNum(p_colNum), 
-    m_val(std::move(TScalar<TElem, TDevice>(std::move(TElem()))))
-    {}    
     size_t RowNum() const{return m_rowNum;}
     size_t ColNum() const{return m_colNum;}
 
@@ -52,7 +48,7 @@ constexpr bool IsMatrix<TrivialMatrix<TElem, TDevice, TScalar>> = true;
 template <typename TElem, typename TDevice, typename TVal>
 auto MakeTrivialMatrix(size_t rowNum, size_t colNum, TVal&& val)
 {
-    using RawVal = RemConstRef<Tval>;
+    using RawVal = RemConstRef<TVal>;
     //val本身为标量类型，需要检查设备类型
     if constexpr (IsScalar<RawVal>)
     {

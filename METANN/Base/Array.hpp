@@ -4,21 +4,29 @@
 #include <METANN/Base/DataCategory.hpp>
 #include <stdexcept>
 #include <cassert>
+#include <memory>
+#include <vector>
 
 namespace METANN
 {
 
+template <typename TData, typename TDataCate>
+class ArrayImp;
+
 template <typename TData>
-class Array;
+class Array : public ArrayImp<TData, DataCategory<TData> >
+{
+public:
+    using ElementType = typename TData::ElementType;
+    using DeviceType = typename TData::DeviceType;
+    using ArrayImp<TData, DataCategory<TData> >::ArrayImp;
+};
 
 template <typename TData>
 constexpr bool IsBatchScalar<Array<TData>> = IsScalar<TData>;
 
 template <typename TData>
 constexpr bool IsBatchMatrix<Array<TData>> = IsMatrix<TData>;
-
-template <typename TData, typename TDataCate>
-class ArrayImp;
 
 template <typename TData>
 class ArrayImp<TData, CategoryTags::Matrix>
@@ -100,11 +108,6 @@ public:
         m_buffer.clear();
     }
 
-    const auto& operator[](size_t id)
-    {
-        return (*m_buffer)[id];
-    }
-
     auto& operator[](size_t id)
     {
         return (*m_buffer)[id];
@@ -115,6 +118,7 @@ public:
     auto end() {return m_buffer->end();}
     auto end() const{return m_buffer->end();}
 
+    bool empty() const {return m_buffer->empty();}
     //求值接口
     bool operator==(const Array<TData>& val)
     {
@@ -151,6 +155,9 @@ public:
     using ElementType = typename TData::ElementType;
     using DeviceType = typename TData::DeviceType;
 
+    ArrayImp(size_t rowNum=0, size_t colNum=0): 
+    m_buffer(new std::vector<TData>())
+    {}
     template <typename TIterator, std::enable_if_t<IsIterator<TIterator> >* = nullptr>
     ArrayImp(TIterator b, TIterator e):
     m_buffer(new std::vector<TData>(b, e))
@@ -193,11 +200,6 @@ public:
         m_buffer.clear();
     }
 
-    const auto& operator[](size_t id)
-    {
-        return (*m_buffer)[id];
-    }
-
     auto& operator[](size_t id)
     {
         return (*m_buffer)[id];
@@ -208,6 +210,7 @@ public:
     auto end() {return m_buffer->end();}
     auto end() const{return m_buffer->end();}
 
+    bool empty() const {return m_buffer->empty();}
     //求值接口
     bool operator==(const Array<TData>& val)
     {
@@ -232,15 +235,6 @@ public:
     }
 private:
     std::shared_ptr<std::vector<TData> > m_buffer;
-};
-
-template <typename TData>
-class Array : public ArrayImp<TData, DataCategory_<TData> >
-{
-public:
-    using ElementType = typename TData::ElementType;
-    using DeviceType = typename TData::DeviceType;
-    using ArrayImp<TData, DataCategory_<TData> >::ArrayImp;
 };
 
 template <typename TIterator>

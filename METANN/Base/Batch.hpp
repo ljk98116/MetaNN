@@ -23,6 +23,8 @@ template <typename TElement, typename TDevice>
 constexpr bool IsBatchScalar<Batch<TElement, TDevice, CategoryTags::Scalar> > = true;
 
 //标量、矩阵的Batch特化
+template <typename TElem, typename TDevice>
+struct LowAccessImpl<Batch<TElem, TDevice, CategoryTags::Matrix>>;
 
 //矩阵的Batch特化
 template <typename TElement, typename TDevice>

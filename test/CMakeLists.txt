@@ -21,3 +21,9 @@ target_link_libraries(varTypeDictTest PRIVATE
     CppUTestExt)
 
 add_executable(sfinaeTest SFINAE.cpp)
+
+include_directories(METANN PRIVATE ${CMAKE_SOURCE_DIR})
+add_subdirectory(data)
+
+add_executable(TotalTest TotalTest.cpp)
+target_link_libraries(TotalTest PRIVATE test_array)

@@ -4,6 +4,7 @@
 #include <METANN/Operators/facility/category_cal.hpp>
 #include <METANN/Operators/facility/organizer.hpp>
 #include <METANN/Operators/facility/traits.hpp>
+#include <METANN/Operators/facility/tags.hpp>
 
 namespace METANN
 {
@@ -104,7 +105,7 @@ public:
     using ElementType = typename OperElementType_<TOptag, TData1, TData2, TData3>::type;
     using DeviceType = typename OperDeviceType_<TOptag, TData1, TData2, TData3>::type;
 
-    TernaryOp(TData1 data1, TData2 data2, TData3):
+    TernaryOp(TData1 data1, TData2 data2, TData3 data3):
     OperOrganizer<TOptag, Cate>(data1, data2, data3),
     m_data1(std::move(data1)), m_data2(std::move(data2)), m_data3(std::move(data3))
     {}

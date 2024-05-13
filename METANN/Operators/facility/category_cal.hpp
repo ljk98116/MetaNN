@@ -27,7 +27,7 @@ namespace NSOperCateCal
     };
 
     template <typename THead, typename...TRemain>
-    struct Data2Cate : public typename Data2Cate_<std::tuple<>, THead, TRemain...>::type{};
+    struct Data2Cate : public Data2Cate_<std::tuple<>, THead, TRemain...>::type{};
 
     template <typename TOpTag, typename TCateContainer>
     struct CateInduce_;

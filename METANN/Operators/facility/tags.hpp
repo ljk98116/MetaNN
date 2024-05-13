@@ -8,7 +8,8 @@ struct UnaryOpTags
     struct Sigmoid;
     struct Tanh;
     struct Transpose;
-
+    struct Collapse;
+    struct Relu;
 };
 
 struct BinaryOpTags

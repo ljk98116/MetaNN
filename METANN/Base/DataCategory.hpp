@@ -26,7 +26,7 @@ struct RemConstRefImpl<T&>
 };
 
 template <typename T>
-struct RemConstRef : typename RemConstRefImpl<T>::type{};
+using RemConstRef = typename RemConstRefImpl<T>::type;
 
 //数据类型的类声明
 template <typename TElem, typename TDevice>
@@ -35,7 +35,11 @@ struct Scalar;
 template <typename TElem, typename TDevice>
 struct Matrix;
 
+template <typename TElem, typename TDevice>
+struct BatchScalar;
 
+template <typename TElem, typename TDevice>
+struct BatchMatrix;
 //类型标签：标量、矩阵、标量列表、矩阵列表
 struct CategoryTags
 {
@@ -191,13 +195,13 @@ using PrincipalDataType = typename PrincipalDataType_<TCategory, TElem, TDevice>
 
 //底层数据访问接口
 template <typename TData>
-struct LowerAccessImpl;
+struct LowAccessImpl;
 
 template <typename TData>
-auto LowerAccess(TData&& p)
+auto LowAccess(TData&& p)
 {
     using RawType = RemConstRef<TData>;
-    return LowerAccessImpl<RawType>(std::forward<TData>(p));
+    return LowAccessImpl<RawType>(std::forward<TData>(p));
 }
 
 //判断是否为C++迭代器
@@ -207,8 +211,9 @@ struct IsIterator_
 {
     template <typename R>
     static std::true_type Test(typename std::iterator_traits<R>::iterator_category*);
+    template <typename R>
     static std::false_type Test(...);
-    static constexpr bool value = decltype(Test<T>(nullptr)::value);
+    static constexpr bool value = decltype(Test<T>(nullptr))::value;
 };
 
 template <typename T>

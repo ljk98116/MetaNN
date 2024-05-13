@@ -15,7 +15,7 @@ public:
     using ElementType = TElem;
     using DeviceType = TDevice;
 public:
-    TrivialMatrix(size_t p_rowNum=0, size_t p_colNum=0):
+    ZeroMatrix(size_t p_rowNum=0, size_t p_colNum=0):
     m_rowNum(p_rowNum), m_colNum(p_colNum)
     {}    
     size_t RowNum() const{return m_rowNum;}

@@ -7,6 +7,9 @@
 //具有复制意义的列表,比如矩阵A，[A,A,...,A],不支持写操作
 namespace METANN
 {
+template <typename TData>
+class Duplicate;
+
 template <typename TData, typename TDataCate>
 class DuplicateImp;
 

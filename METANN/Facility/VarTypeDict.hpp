@@ -12,7 +12,7 @@
 /// 异类词典实现
 /// 编译期键值，即类型量
 /// 运行期值，通过new来保存，通过空类型shared_ptr vector保存，通过类型序列建立键值的对应关系
-namespace NSVarTypeDict
+namespace METANN
 {
 //空类型
 struct NullParameter{};
@@ -133,7 +133,7 @@ struct VarTypeDict
         template <typename TTag, typename TValue>
         auto Set(TValue &&val) &&
         {
-            using namespace NSVarTypeDict;
+            using namespace METANN;
             //找到TTag的位置
             constexpr static size_t TagPos = Tag2ID<TTag, TParameters...>;
             //在堆中创建对应类型的值的副本
@@ -170,6 +170,7 @@ struct VarTypeDict
             using TValue = std::decay_t<typename TupleLocate<TagPos, TTypes...>::type>;
             return *static_cast<TValue*>(m_tuple[TagPos].get());
         }
+        
     private:
         //std::shared_ptr<void> m_tuple[sizeof...(TTypes)];
         std::vector<std::shared_ptr<void>> m_tuple;
@@ -178,7 +179,7 @@ struct VarTypeDict
 public:
     static auto Create()
     {
-        using namespace NSVarTypeDict;
+        using namespace METANN;
         //类型序列初始为空
         using type = typename Create_<sizeof...(TParameters), Values>::type;
         return type{};

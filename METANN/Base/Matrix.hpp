@@ -12,7 +12,8 @@ template <typename TElem, typename TDevice=DeviceTags::CPU>
 class Matrix
 {
     //LowerAccessImpl<Matrix<TElem, TDevice> >可以访问到Matrix的私有成员
-    friend struct LowerAccessImpl<Matrix<TElem, TDevice> >;
+    friend struct LowAccessImpl<Matrix<TElem, TDevice> >;
+    friend class Batch<TElem, TDevice, CategoryTags::Matrix>;
 public:
     using ElementType = TElem;
     using DeviceType = TDevice;
@@ -108,9 +109,9 @@ Matrix<TElem, TDevice>::SubMatrix(size_t p_rowB, size_t p_rowE, size_t p_colB, s
 
 //CPU上矩阵底层数据访问接口实现,特化
 template <typename TElem>
-struct LowerAccessImpl<Matrix<TElem, DeviceTags::CPU> >
+struct LowAccessImpl<Matrix<TElem, DeviceTags::CPU> >
 {
-    LowerAccessImpl(Matrix<TElem, DeviceTags::CPU> p): m_matrix(p){}
+    LowAccessImpl(Matrix<TElem, DeviceTags::CPU> p): m_matrix(p){}
     //安全性存在问题，用户使用此处指针进行写操作会绕过UseCount检查
     auto MutableRawMemory(){return m_matrix.m_mem.RawMemory();}
     const auto RawMemory() const{return m_matrix.m_mem.RawMemory();}
@@ -118,5 +119,6 @@ struct LowerAccessImpl<Matrix<TElem, DeviceTags::CPU> >
 private:
     Matrix<TElem, DeviceTags::CPU> m_matrix;
 };
+
 }
 #endif

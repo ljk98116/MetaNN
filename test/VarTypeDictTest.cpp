@@ -1,10 +1,10 @@
-#include <METANN/NSVarTypeDict/VarTypeDict.hpp>
-#include <METANN/NSVarTypeDict/Policy.hpp>
+#include <METANN/Facility/VarTypeDict.hpp>
+#include <METANN/Facility/Policy.hpp>
 
 #include "CppUTest/TestHarness.h"
 #include "CppUTest/CommandLineTestRunner.h"
 
-using namespace NSVarTypeDict;
+using namespace METANN;
 
 struct A;
 struct B;

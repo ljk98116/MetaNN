@@ -2,7 +2,7 @@
 #define POLICY_HPP_
 #include <cmath>
 
-namespace NSVarTypeDict
+namespace METANN
 {
 
 //policy组，累积操作的策略
