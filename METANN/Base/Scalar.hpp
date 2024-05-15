@@ -3,6 +3,7 @@
 
 #include <METANN/Base/Device.hpp>
 #include <METANN/Base/DataCategory.hpp>
+#include <METANN/Evaluate/facility/eval_handle.hpp>
 
 namespace METANN
 {
@@ -36,7 +37,10 @@ public:
         return !(operator==(val));
     }
     //求值注册
-    auto EvalRegister() const;
+    auto EvalRegister() const
+    {
+        return MakeConstEvalHandle(*this);
+    }
 private:
     ElementType m_elem;
 };

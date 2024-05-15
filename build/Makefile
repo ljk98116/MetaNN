@@ -155,6 +155,45 @@ sfinaeTest/fast:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/sfinaeTest.dir/build.make test/CMakeFiles/sfinaeTest.dir/build
 .PHONY : sfinaeTest/fast
 
+#=============================================================================
+# Target rules for targets named TotalTest
+
+# Build rule for target.
+TotalTest: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 TotalTest
+.PHONY : TotalTest
+
+# fast build rule for target.
+TotalTest/fast:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/TotalTest.dir/build.make test/CMakeFiles/TotalTest.dir/build
+.PHONY : TotalTest/fast
+
+#=============================================================================
+# Target rules for targets named test_array
+
+# Build rule for target.
+test_array: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_array
+.PHONY : test_array
+
+# fast build rule for target.
+test_array/fast:
+	$(MAKE) $(MAKESILENT) -f test/data/CMakeFiles/test_array.dir/build.make test/data/CMakeFiles/test_array.dir/build
+.PHONY : test_array/fast
+
+#=============================================================================
+# Target rules for targets named test_batch_matrix
+
+# Build rule for target.
+test_batch_matrix: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test_batch_matrix
+.PHONY : test_batch_matrix
+
+# fast build rule for target.
+test_batch_matrix/fast:
+	$(MAKE) $(MAKESILENT) -f test/data/CMakeFiles/test_batch_matrix.dir/build.make test/data/CMakeFiles/test_batch_matrix.dir/build
+.PHONY : test_batch_matrix/fast
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -163,8 +202,11 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... TotalTest"
 	@echo "... example_test"
 	@echo "... sfinaeTest"
+	@echo "... test_array"
+	@echo "... test_batch_matrix"
 	@echo "... varTypeDictTest"
 .PHONY : help
 

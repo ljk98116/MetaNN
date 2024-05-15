@@ -158,6 +158,20 @@ sfinaeTest/fast:
 	cd /home/ljk98/MetaNN/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/sfinaeTest.dir/build.make test/CMakeFiles/sfinaeTest.dir/build
 .PHONY : sfinaeTest/fast
 
+# Convenience name for target.
+test/CMakeFiles/TotalTest.dir/rule:
+	cd /home/ljk98/MetaNN/build && $(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/TotalTest.dir/rule
+.PHONY : test/CMakeFiles/TotalTest.dir/rule
+
+# Convenience name for target.
+TotalTest: test/CMakeFiles/TotalTest.dir/rule
+.PHONY : TotalTest
+
+# fast build rule for target.
+TotalTest/fast:
+	cd /home/ljk98/MetaNN/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TotalTest.dir/build.make test/CMakeFiles/TotalTest.dir/build
+.PHONY : TotalTest/fast
+
 ExampleTest.o: ExampleTest.cpp.o
 .PHONY : ExampleTest.o
 
@@ -206,6 +220,30 @@ SFINAE.cpp.s:
 	cd /home/ljk98/MetaNN/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/sfinaeTest.dir/build.make test/CMakeFiles/sfinaeTest.dir/SFINAE.cpp.s
 .PHONY : SFINAE.cpp.s
 
+TotalTest.o: TotalTest.cpp.o
+.PHONY : TotalTest.o
+
+# target to build an object file
+TotalTest.cpp.o:
+	cd /home/ljk98/MetaNN/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TotalTest.dir/build.make test/CMakeFiles/TotalTest.dir/TotalTest.cpp.o
+.PHONY : TotalTest.cpp.o
+
+TotalTest.i: TotalTest.cpp.i
+.PHONY : TotalTest.i
+
+# target to preprocess a source file
+TotalTest.cpp.i:
+	cd /home/ljk98/MetaNN/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TotalTest.dir/build.make test/CMakeFiles/TotalTest.dir/TotalTest.cpp.i
+.PHONY : TotalTest.cpp.i
+
+TotalTest.s: TotalTest.cpp.s
+.PHONY : TotalTest.s
+
+# target to generate assembly for a file
+TotalTest.cpp.s:
+	cd /home/ljk98/MetaNN/build && $(MAKE) $(MAKESILENT) -f test/CMakeFiles/TotalTest.dir/build.make test/CMakeFiles/TotalTest.dir/TotalTest.cpp.s
+.PHONY : TotalTest.cpp.s
+
 VarTypeDictTest.o: VarTypeDictTest.cpp.o
 .PHONY : VarTypeDictTest.o
 
@@ -238,6 +276,7 @@ help:
 	@echo "... depend"
 	@echo "... edit_cache"
 	@echo "... rebuild_cache"
+	@echo "... TotalTest"
 	@echo "... example_test"
 	@echo "... sfinaeTest"
 	@echo "... varTypeDictTest"
@@ -247,6 +286,9 @@ help:
 	@echo "... SFINAE.o"
 	@echo "... SFINAE.i"
 	@echo "... SFINAE.s"
+	@echo "... TotalTest.o"
+	@echo "... TotalTest.i"
+	@echo "... TotalTest.s"
 	@echo "... VarTypeDictTest.o"
 	@echo "... VarTypeDictTest.i"
 	@echo "... VarTypeDictTest.s"

@@ -5,6 +5,7 @@
 #include <METANN/Base/Device.hpp>
 #include <METANN/Base/DataCategory.hpp>
 #include <METANN/Memory/ContinuesMemories.hpp>
+#include <METANN/Evaluate/facility/eval_handle.hpp>
 
 namespace METANN
 {
@@ -54,7 +55,10 @@ public:
         return !(operator==(val));
     }
     //求值注册
-    auto EvalRegister() const;    
+    auto EvalRegister() const
+    {
+        return MakeConstEvalHandle(*this);
+    }
 private:
     Matrix(std::shared_ptr<ElementType> p_mem, ElementType *p_memStart,
         size_t p_rowNum, size_t p_colNum, size_t p_rowLen):

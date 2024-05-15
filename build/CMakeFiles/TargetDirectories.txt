@@ -9,5 +9,6 @@
 /home/ljk98/MetaNN/build/test/CMakeFiles/edit_cache.dir
 /home/ljk98/MetaNN/build/test/CMakeFiles/rebuild_cache.dir
 /home/ljk98/MetaNN/build/test/data/CMakeFiles/test_array.dir
+/home/ljk98/MetaNN/build/test/data/CMakeFiles/test_batch_matrix.dir
 /home/ljk98/MetaNN/build/test/data/CMakeFiles/edit_cache.dir
 /home/ljk98/MetaNN/build/test/data/CMakeFiles/rebuild_cache.dir

@@ -43,10 +43,10 @@ void TestArray1()
     assert(rm1.BatchNum() == 3);
     assert(!rm1.empty());
 
-    //auto evalHandle = rm1.EvalRegister();
-    //EvalPlan<DeviceTags::CPU>::Eval();
-    //auto rm2 = evalHandle.Data();
-    #if 0
+    auto evalHandle = rm1.EvalRegister();
+    EvalPlan<DeviceTags::CPU>::Eval();
+    auto rm2 = evalHandle.Data();
+    #if 1
     for (size_t i = 0; i < 10; ++i)
     {
         for (size_t j = 0; j < 20; ++j)

@@ -39,10 +39,25 @@ public:
     m_mem(p_batchNum * p_rowNum * p_colNum),
     m_rowNum(p_rowNum),
     m_colNum(p_colNum),
-    m_rowLen(p_rowNum),
+    m_rowLen(p_colNum),
+    m_batchNum(p_batchNum),
     m_rawMatrixSize(p_rowNum * p_colNum)
     {}
+    bool AvailableForWrite() const { return m_mem.Use_count() == 1; }
+    size_t BatchNum() const {return m_batchNum;}
+    size_t RowNum() const {return m_rowNum;}
+    size_t ColNum() const {return m_colNum;}
 
+    void SetValue(size_t p_batchId, size_t p_rowId, size_t p_colId, ElementType val)
+    {
+        assert(AvailableForWrite());
+        assert((p_rowId < m_rowNum) &&
+               (p_colId < m_colNum) &&
+               (p_batchId < m_batchNum));
+        
+        size_t pos = p_batchId * m_rawMatrixSize + p_rowId * m_rowLen + p_colId;
+        (m_mem.RawMemory())[pos] = val;
+    }
 private:
     
 private:

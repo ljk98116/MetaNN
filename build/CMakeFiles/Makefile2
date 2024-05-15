@@ -99,17 +99,38 @@ METANN/clean:
 test/all: test/CMakeFiles/example_test.dir/all
 test/all: test/CMakeFiles/varTypeDictTest.dir/all
 test/all: test/CMakeFiles/sfinaeTest.dir/all
+test/all: test/CMakeFiles/TotalTest.dir/all
+test/all: test/data/all
 .PHONY : test/all
 
 # Recursive "preinstall" directory target.
-test/preinstall:
+test/preinstall: test/data/preinstall
 .PHONY : test/preinstall
 
 # Recursive "clean" directory target.
 test/clean: test/CMakeFiles/example_test.dir/clean
 test/clean: test/CMakeFiles/varTypeDictTest.dir/clean
 test/clean: test/CMakeFiles/sfinaeTest.dir/clean
+test/clean: test/CMakeFiles/TotalTest.dir/clean
+test/clean: test/data/clean
 .PHONY : test/clean
+
+#=============================================================================
+# Directory level rules for directory test/data
+
+# Recursive "all" directory target.
+test/data/all: test/data/CMakeFiles/test_array.dir/all
+test/data/all: test/data/CMakeFiles/test_batch_matrix.dir/all
+.PHONY : test/data/all
+
+# Recursive "preinstall" directory target.
+test/data/preinstall:
+.PHONY : test/data/preinstall
+
+# Recursive "clean" directory target.
+test/data/clean: test/data/CMakeFiles/test_array.dir/clean
+test/data/clean: test/data/CMakeFiles/test_batch_matrix.dir/clean
+.PHONY : test/data/clean
 
 #=============================================================================
 # Target rules for target test/CMakeFiles/example_test.dir
@@ -118,7 +139,7 @@ test/clean: test/CMakeFiles/sfinaeTest.dir/clean
 test/CMakeFiles/example_test.dir/all:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/example_test.dir/build.make test/CMakeFiles/example_test.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/example_test.dir/build.make test/CMakeFiles/example_test.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ljk98/MetaNN/build/CMakeFiles --progress-num=1,2 "Built target example_test"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ljk98/MetaNN/build/CMakeFiles --progress-num=3,4 "Built target example_test"
 .PHONY : test/CMakeFiles/example_test.dir/all
 
 # Build rule for subdir invocation for target.
@@ -144,7 +165,7 @@ test/CMakeFiles/example_test.dir/clean:
 test/CMakeFiles/varTypeDictTest.dir/all:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/varTypeDictTest.dir/build.make test/CMakeFiles/varTypeDictTest.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/varTypeDictTest.dir/build.make test/CMakeFiles/varTypeDictTest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ljk98/MetaNN/build/CMakeFiles --progress-num=5,6 "Built target varTypeDictTest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ljk98/MetaNN/build/CMakeFiles --progress-num=11,12 "Built target varTypeDictTest"
 .PHONY : test/CMakeFiles/varTypeDictTest.dir/all
 
 # Build rule for subdir invocation for target.
@@ -170,7 +191,7 @@ test/CMakeFiles/varTypeDictTest.dir/clean:
 test/CMakeFiles/sfinaeTest.dir/all:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/sfinaeTest.dir/build.make test/CMakeFiles/sfinaeTest.dir/depend
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/sfinaeTest.dir/build.make test/CMakeFiles/sfinaeTest.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ljk98/MetaNN/build/CMakeFiles --progress-num=3,4 "Built target sfinaeTest"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ljk98/MetaNN/build/CMakeFiles --progress-num=5,6 "Built target sfinaeTest"
 .PHONY : test/CMakeFiles/sfinaeTest.dir/all
 
 # Build rule for subdir invocation for target.
@@ -188,6 +209,85 @@ sfinaeTest: test/CMakeFiles/sfinaeTest.dir/rule
 test/CMakeFiles/sfinaeTest.dir/clean:
 	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/sfinaeTest.dir/build.make test/CMakeFiles/sfinaeTest.dir/clean
 .PHONY : test/CMakeFiles/sfinaeTest.dir/clean
+
+#=============================================================================
+# Target rules for target test/CMakeFiles/TotalTest.dir
+
+# All Build rule for target.
+test/CMakeFiles/TotalTest.dir/all: test/data/CMakeFiles/test_array.dir/all
+test/CMakeFiles/TotalTest.dir/all: test/data/CMakeFiles/test_batch_matrix.dir/all
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/TotalTest.dir/build.make test/CMakeFiles/TotalTest.dir/depend
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/TotalTest.dir/build.make test/CMakeFiles/TotalTest.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ljk98/MetaNN/build/CMakeFiles --progress-num=1,2 "Built target TotalTest"
+.PHONY : test/CMakeFiles/TotalTest.dir/all
+
+# Build rule for subdir invocation for target.
+test/CMakeFiles/TotalTest.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ljk98/MetaNN/build/CMakeFiles 6
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/CMakeFiles/TotalTest.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ljk98/MetaNN/build/CMakeFiles 0
+.PHONY : test/CMakeFiles/TotalTest.dir/rule
+
+# Convenience name for target.
+TotalTest: test/CMakeFiles/TotalTest.dir/rule
+.PHONY : TotalTest
+
+# clean rule for target.
+test/CMakeFiles/TotalTest.dir/clean:
+	$(MAKE) $(MAKESILENT) -f test/CMakeFiles/TotalTest.dir/build.make test/CMakeFiles/TotalTest.dir/clean
+.PHONY : test/CMakeFiles/TotalTest.dir/clean
+
+#=============================================================================
+# Target rules for target test/data/CMakeFiles/test_array.dir
+
+# All Build rule for target.
+test/data/CMakeFiles/test_array.dir/all:
+	$(MAKE) $(MAKESILENT) -f test/data/CMakeFiles/test_array.dir/build.make test/data/CMakeFiles/test_array.dir/depend
+	$(MAKE) $(MAKESILENT) -f test/data/CMakeFiles/test_array.dir/build.make test/data/CMakeFiles/test_array.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ljk98/MetaNN/build/CMakeFiles --progress-num=7,8 "Built target test_array"
+.PHONY : test/data/CMakeFiles/test_array.dir/all
+
+# Build rule for subdir invocation for target.
+test/data/CMakeFiles/test_array.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ljk98/MetaNN/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/data/CMakeFiles/test_array.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ljk98/MetaNN/build/CMakeFiles 0
+.PHONY : test/data/CMakeFiles/test_array.dir/rule
+
+# Convenience name for target.
+test_array: test/data/CMakeFiles/test_array.dir/rule
+.PHONY : test_array
+
+# clean rule for target.
+test/data/CMakeFiles/test_array.dir/clean:
+	$(MAKE) $(MAKESILENT) -f test/data/CMakeFiles/test_array.dir/build.make test/data/CMakeFiles/test_array.dir/clean
+.PHONY : test/data/CMakeFiles/test_array.dir/clean
+
+#=============================================================================
+# Target rules for target test/data/CMakeFiles/test_batch_matrix.dir
+
+# All Build rule for target.
+test/data/CMakeFiles/test_batch_matrix.dir/all:
+	$(MAKE) $(MAKESILENT) -f test/data/CMakeFiles/test_batch_matrix.dir/build.make test/data/CMakeFiles/test_batch_matrix.dir/depend
+	$(MAKE) $(MAKESILENT) -f test/data/CMakeFiles/test_batch_matrix.dir/build.make test/data/CMakeFiles/test_batch_matrix.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/ljk98/MetaNN/build/CMakeFiles --progress-num=9,10 "Built target test_batch_matrix"
+.PHONY : test/data/CMakeFiles/test_batch_matrix.dir/all
+
+# Build rule for subdir invocation for target.
+test/data/CMakeFiles/test_batch_matrix.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ljk98/MetaNN/build/CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/Makefile2 test/data/CMakeFiles/test_batch_matrix.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/ljk98/MetaNN/build/CMakeFiles 0
+.PHONY : test/data/CMakeFiles/test_batch_matrix.dir/rule
+
+# Convenience name for target.
+test_batch_matrix: test/data/CMakeFiles/test_batch_matrix.dir/rule
+.PHONY : test_batch_matrix
+
+# clean rule for target.
+test/data/CMakeFiles/test_batch_matrix.dir/clean:
+	$(MAKE) $(MAKESILENT) -f test/data/CMakeFiles/test_batch_matrix.dir/build.make test/data/CMakeFiles/test_batch_matrix.dir/clean
+.PHONY : test/data/CMakeFiles/test_batch_matrix.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

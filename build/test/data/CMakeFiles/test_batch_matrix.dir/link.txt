@@ -1,0 +1,1 @@
+/usr/bin/c++ -fPIC -shared -Wl,-soname,libtest_batch_matrix.so -o libtest_batch_matrix.so CMakeFiles/test_batch_matrix.dir/test_batch_matrix.cpp.o 

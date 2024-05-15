@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/TotalTest.dir/TotalTest.cpp.o -o TotalTest  -Wl,-rpath,/home/ljk98/MetaNN/build/test/data data/libtest_array.so data/libtest_batch_matrix.so 

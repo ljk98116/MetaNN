@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.22)
-set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD 17)
 project("MetaNN Test")
+
+add_definitions("-Wall -g")
 
 find_package(CppUTest REQUIRED)
 # set(CPPUTEST_HOME "/usr/local/include/CppUTest")
@@ -26,4 +28,4 @@ include_directories(METANN PRIVATE ${CMAKE_SOURCE_DIR})
 add_subdirectory(data)
 
 add_executable(TotalTest TotalTest.cpp)
-target_link_libraries(TotalTest PRIVATE test_array)
+target_link_libraries(TotalTest PRIVATE test_array test_batch_matrix)

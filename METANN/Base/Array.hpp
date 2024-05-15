@@ -1,11 +1,19 @@
 #ifndef ARRAY_HPP_
 #define ARRAY_HPP_
 
-#include <METANN/Base/DataCategory.hpp>
 #include <stdexcept>
 #include <cassert>
 #include <memory>
 #include <vector>
+
+#include <METANN/Base/DataCategory.hpp>
+#include <METANN/Base/Device.hpp>
+#include <METANN/Base/Batch.hpp>
+#include <METANN/Evaluate/facility/eval_unit.hpp>
+#include <METANN/Evaluate/facility/eval_handle.hpp>
+#include <METANN/Evaluate/facility/eval_buffer.hpp>
+#include <METANN/Evaluate/facility/eval_plan.hpp>
+#include <METANN/Evaluate/facility/eval_group.hpp>
 
 namespace METANN
 {
@@ -27,6 +35,54 @@ constexpr bool IsBatchScalar<Array<TData>> = IsScalar<TData>;
 
 template <typename TData>
 constexpr bool IsBatchMatrix<Array<TData>> = IsMatrix<TData>;
+
+namespace NSArray
+{
+
+template <typename TInputElem, typename TElem, typename TDevice, typename TCategory>
+struct EvalUnit;
+
+template <typename TInputElem, typename TElem>
+struct EvalUnit<TInputElem, TElem, DeviceTags::CPU, CategoryTags::Matrix> : public BaseEvalUnit<DeviceTags::CPU>
+{
+    using ElementType = TElem;
+    using DeviceType = DeviceTags::CPU;
+public:
+    EvalUnit(std::vector<TInputElem> p_input, 
+    EvalHandle<Batch<TElem, DeviceTags::CPU, CategoryTags::Matrix > > p_handle):
+    m_inputs(std::move(p_input)),
+    m_evalHandle(std::move(p_handle))
+    {}
+
+    void Eval() override
+    {
+        if(m_inputs.empty()) m_evalHandle.Allocate(0, 0, 0);
+        else
+        {
+            size_t tbn = m_inputs.size();
+            size_t trn = m_inputs[0].Data().RowNum();
+            size_t tcn = m_inputs[0].Data().ColNum();
+            auto& res = m_evalHandle.MutableData();
+            m_evalHandle.Allocate(tbn, trn, tcn);
+            for(size_t bn=0;bn<tbn;++bn)
+            {
+                const auto& input = m_inputs[bn].Data();
+                for(size_t i=0;i<trn;++i)
+                for(size_t j=0;j<tcn;++j)
+                {
+                    res.SetValue(bn, i, j, input(i, j));
+                }
+            }
+        }
+        m_evalHandle.SetEval();
+        //std::cout << "Evaluated" << std::endl;
+    }
+private:
+    std::vector<TInputElem> m_inputs;
+    EvalHandle<Batch<TElem, DeviceTags::CPU, CategoryTags::Matrix > > m_evalHandle;
+};
+
+}
 
 template <typename TData>
 class ArrayImp<TData, CategoryTags::Matrix>
@@ -108,7 +164,12 @@ public:
         m_buffer.clear();
     }
 
-    auto& operator[](size_t id)
+    const auto& operator[] (size_t id) const
+    {
+        return (*m_buffer)[id];
+    }
+    
+    auto& operator[] (size_t id)
     {
         return (*m_buffer)[id];
     }
@@ -137,15 +198,48 @@ public:
     {
         return !(operator==(val));
     }
+
     bool AvailableForWrite() const
     {
-        return m_buffer.use_count() == 1;
+        return (m_buffer.use_count() == 1) && (!m_evalBuffer.IsEvaluated());
     }
 
+    auto EvalRegister() const
+    {
+        if(!m_evalBuffer.IsEvaluated())
+        {
+            //顶层求值结果句柄类型
+            //需要去除常量、引用
+            //std::declval<T>()生成T类型对象的右值引用，不实际构造对象
+            using TopEvalHandle = std::decay_t<decltype(std::declval<TData>().EvalRegister())>;
+            std::vector<TopEvalHandle> handleBuf;
+            std::vector<const void*> depVec;
+            //实际处理的顶层求值数量与数组大小相同
+            handleBuf.reserve(this->size());
+            depVec.reserve(this->size());
+            //加入对应句柄和结果指针
+            for(size_t i=0;i<this->size();++i)
+            {
+                handleBuf.push_back((*this)[i].EvalRegister());
+                depVec.push_back(handleBuf.back().DataPtr());
+            }
+
+            auto outputHandle = m_evalBuffer.Handle();
+
+            using EvalUnit = NSArray::EvalUnit<TopEvalHandle, ElementType, DeviceType, CategoryTags::Matrix>;
+            using GroupType = TrivialEvalGroup<EvalUnit>;
+            
+            const void* dataPtr = outputHandle.DataPtr();
+            EvalUnit unit(std::move(handleBuf), std::move(outputHandle));
+            EvalPlan<DeviceType>::template Register<GroupType>(std::move(unit), dataPtr, std::move(depVec));
+        }
+        return m_evalBuffer.ConstHandle();
+    }
 private:
     size_t m_rowNum;
     size_t m_colNum;
     std::shared_ptr<std::vector<TData> > m_buffer;
+    EvalBuffer<Batch<ElementType, DeviceType, CategoryTags::Matrix> > m_evalBuffer;
 };
 
 template <typename TData>
@@ -155,6 +249,7 @@ public:
     using ElementType = typename TData::ElementType;
     using DeviceType = typename TData::DeviceType;
 
+    //保留默认构造函数
     ArrayImp(size_t rowNum=0, size_t colNum=0): 
     m_buffer(new std::vector<TData>())
     {}
