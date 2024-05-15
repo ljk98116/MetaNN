@@ -79,13 +79,13 @@ void TestArray2()
     assert(rm1.BatchNum() == 3);
     assert(!rm1.empty());
 
-    //auto evalHandle = rm1.EvalRegister();
-    //EvalPlan<DeviceTags::CPU>::Eval();
-    //auto rm2 = evalHandle.Data();
+    auto evalHandle = rm1.EvalRegister();
+    EvalPlan<DeviceTags::CPU>::Eval();
+    auto rm2 = evalHandle.Data();
     
-    //assert(rm2[0] == 3);
-    //assert(rm2[1] == 8);
-    //assert(rm2[2] == 2);
+    assert(rm2[0] == 3);
+    assert(rm2[1] == 8);
+    assert(rm2[2] == 2);
     cout << "done" << endl;
 }
 

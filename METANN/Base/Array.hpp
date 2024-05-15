@@ -82,6 +82,40 @@ private:
     EvalHandle<Batch<TElem, DeviceTags::CPU, CategoryTags::Matrix > > m_evalHandle;
 };
 
+template <typename TInputElem, typename TElem>
+struct EvalUnit<TInputElem, TElem, DeviceTags::CPU, CategoryTags::Scalar> : public BaseEvalUnit<DeviceTags::CPU>
+{
+    using ElementType = TElem;
+    using DeviceType = DeviceTags::CPU;
+public:
+    EvalUnit(std::vector<TInputElem> p_input, 
+    EvalHandle<Batch<TElem, DeviceTags::CPU, CategoryTags::Scalar > > p_handle):
+    m_inputs(std::move(p_input)),
+    m_evalHandle(std::move(p_handle))
+    {}
+
+    void Eval() override
+    {
+        if(m_inputs.empty()) m_evalHandle.Allocate(0);
+        else
+        {
+            size_t tbn = m_inputs.size();
+            //size_t trn = m_inputs[0].Data().RowNum();
+            //size_t tcn = m_inputs[0].Data().ColNum();
+            auto& res = m_evalHandle.MutableData();
+            m_evalHandle.Allocate(tbn);
+            for(size_t bn=0;bn<tbn;++bn)
+            {
+                res.SetValue(bn, m_inputs[bn].Data().Value());
+            }
+        }
+        m_evalHandle.SetEval();
+        //std::cout << "Evaluated" << std::endl;
+    }
+private:
+    std::vector<TInputElem> m_inputs;
+    EvalHandle<Batch<TElem, DeviceTags::CPU, CategoryTags::Scalar > > m_evalHandle;
+};
 }
 
 template <typename TData>
@@ -228,7 +262,7 @@ public:
 
             using EvalUnit = NSArray::EvalUnit<TopEvalHandle, ElementType, DeviceType, CategoryTags::Matrix>;
             using GroupType = TrivialEvalGroup<EvalUnit>;
-            
+
             const void* dataPtr = outputHandle.DataPtr();
             EvalUnit unit(std::move(handleBuf), std::move(outputHandle));
             EvalPlan<DeviceType>::template Register<GroupType>(std::move(unit), dataPtr, std::move(depVec));
@@ -295,6 +329,11 @@ public:
         m_buffer.clear();
     }
 
+    const auto& operator[](size_t id) const
+    {
+        return (*m_buffer)[id];
+    }
+
     auto& operator[](size_t id)
     {
         return (*m_buffer)[id];
@@ -328,8 +367,41 @@ public:
     {
         return m_buffer.use_count() == 1;
     }
+
+    auto EvalRegister() const
+    {
+        if(!m_evalBuffer.IsEvaluated())
+        {
+            //顶层求值结果句柄类型
+            //需要去除常量、引用
+            //std::declval<T>()生成T类型对象的右值引用，不实际构造对象
+            using TopEvalHandle = std::decay_t<decltype(std::declval<TData>().EvalRegister())>;
+            std::vector<TopEvalHandle> handleBuf;
+            std::vector<const void*> depVec;
+            //实际处理的顶层求值数量与数组大小相同
+            handleBuf.reserve(this->size());
+            depVec.reserve(this->size());
+            //加入对应句柄和结果指针
+            for(size_t i=0;i<this->size();++i)
+            {
+                handleBuf.push_back((*this)[i].EvalRegister());
+                depVec.push_back(handleBuf.back().DataPtr());
+            }
+
+            auto outputHandle = m_evalBuffer.Handle();
+
+            using EvalUnit = NSArray::EvalUnit<TopEvalHandle, ElementType, DeviceType, CategoryTags::Scalar>;
+            using GroupType = TrivialEvalGroup<EvalUnit>;
+
+            const void* dataPtr = outputHandle.DataPtr();
+            EvalUnit unit(std::move(handleBuf), std::move(outputHandle));
+            EvalPlan<DeviceType>::template Register<GroupType>(std::move(unit), dataPtr, std::move(depVec));
+        }
+        return m_evalBuffer.ConstHandle();
+    }
 private:
     std::shared_ptr<std::vector<TData> > m_buffer;
+    EvalBuffer<Batch<ElementType, DeviceType, CategoryTags::Scalar> > m_evalBuffer;
 };
 
 template <typename TIterator>

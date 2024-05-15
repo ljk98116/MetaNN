@@ -59,7 +59,20 @@ public:
         (m_mem.RawMemory())[pos] = val;
     }
 private:
-    
+    Batch(std::shared_ptr<ElementType> p_mem,
+              ElementType* p_memStart,
+              size_t p_rowNum,
+              size_t p_colNum,
+              size_t p_batchNum,
+              size_t p_rowLen,
+              size_t p_matrixSize)
+        : m_mem(p_mem, p_memStart)
+        , m_rowNum(p_rowNum)
+        , m_colNum(p_colNum)
+        , m_batchNum(p_batchNum)
+        , m_rowLen(p_rowLen)
+        , m_rawMatrixSize(p_matrixSize)
+    {}    
 private:
     ContinuesMemory<ElementType, DeviceType> m_mem;
     size_t m_rowNum;
@@ -67,6 +80,85 @@ private:
     size_t m_batchNum;
     size_t m_rowLen;
     size_t m_rawMatrixSize;
+};
+
+template <typename TElem>
+class Batch<TElem, DeviceTags::CPU, CategoryTags::Scalar>
+{
+public:
+    using ElementType = TElem;
+    using DeviceType = DeviceTags::CPU;
+    
+    friend LowAccessImpl<Batch<TElem, DeviceTags::CPU, CategoryTags::Scalar>>;
+    
+public:
+    Batch(size_t length = 0)
+        : m_mem(length)
+        , m_len(length) {}
+     
+    size_t BatchNum() const { return m_len; }
+
+    bool AvailableForWrite() const { return m_mem.Use_count() == 1; }
+
+    void SetValue(size_t p_id, ElementType val)
+    {
+        assert(AvailableForWrite());
+        assert(p_id < m_len);
+        (m_mem.RawMemory())[p_id] = val;
+    }
+    
+    const auto operator[](size_t p_id) const
+    {
+        assert(p_id < m_len);
+        return (m_mem.RawMemory())[p_id];
+    }
+   
+    bool operator== (const Batch& val) const
+    {
+        return (m_mem == val.m_mem) && (m_len == val.m_len);
+    }
+
+    template <typename TOtherType>
+    bool operator== (const TOtherType&) const
+    {
+        return false;
+    }
+
+    template <typename TData>
+    bool operator!= (const TData& val) const
+    {
+        return !(operator==(val));
+    }
+    
+    auto EvalRegister() const
+    {
+        return MakeConstEvalHandle(*this);
+    }
+    
+private:
+    ContinuesMemory<ElementType, DeviceType> m_mem;
+    size_t m_len;
+};
+
+template<typename TElem>
+struct LowAccessImpl<Batch<TElem, DeviceTags::CPU, CategoryTags::Scalar>>
+{
+    LowAccessImpl(Batch<TElem, DeviceTags::CPU, CategoryTags::Scalar> p)
+        : m_data(std::move(p))
+    {}
+
+    auto MutableRawMemory()
+    {
+        return m_data.m_mem.RawMemory();
+    }
+
+    const auto RawMemory() const
+    {
+        return m_data.m_mem.RawMemory();
+    }
+
+private:
+    Batch<TElem, DeviceTags::CPU, CategoryTags::Scalar> m_data;
 };
 
 }
